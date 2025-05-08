@@ -8,6 +8,8 @@ The goal of this project is to implement and test sensorless field-oriented cont
 
 ### STM32G431CB
 
+![alt text](./img/STM32G431CB%20Pinout.png)
+
 ### L6387
 
 
