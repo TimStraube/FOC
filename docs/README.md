@@ -6,4 +6,14 @@ The goal of this project is to implement and test sensorless field-oriented cont
 
 ## B-G431B-ESC1
 
+### STM32G431CB
+
+### L6387
+
+
+
+### STL180N6F7
+
+![alt text](./img/Characteristics.png)
+
 ## System design
