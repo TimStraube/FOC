@@ -26,7 +26,10 @@ The goal of this project is to implement and test sensorless field-oriented cont
 | R_DS_on         | Max drain-source resistance | 2.4     | mΩ    |
 | I_DS            | Drain current        | 120         | A     |
 
+#### Save operating space
+![alt text](./img/GADG101220181412SOA.png)
+
 #### Characteristics
-![alt text](./img/Characteristics.png)
+![alt text](./img/CADG101220181450OCH.png)
 
 ## System design
