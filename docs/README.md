@@ -33,3 +33,7 @@ The goal of this project is to implement and test sensorless field-oriented cont
 ![alt text](./img/CADG101220181450OCH.png)
 
 ## System design
+
+### Build process 
+
+![alt text](./img/process%20build.png)
