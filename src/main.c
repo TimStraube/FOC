@@ -15,6 +15,10 @@
 
 #define LED_PIN 5
 
+void init_system(void) {
+  
+}
+
 void main(void)
 {
 

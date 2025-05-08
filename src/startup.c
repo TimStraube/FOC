@@ -31,7 +31,7 @@ void debug_monitor_handler(void) { default_handler(); }
 void pendsv_handler(void) { default_handler(); }
 void systick_handler(void) { default_handler(); }
 
-const void *isr_vector[ISR_VECTOR_SIZE_WORDS] __attribute__((section("__DATA,.isr_vector"))) = {
+const void *isr_vector[ISR_VECTOR_SIZE_WORDS] __attribute__((section(".isr_vector"))) = {
     (void *)STACK_POINTER_INIT_ADDRESS,
     reset_handler,
     nmi_handler,
