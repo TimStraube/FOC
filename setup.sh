@@ -54,48 +54,52 @@ command -v st-flash >/dev/null 2>&1 || {
     fi
 }
 
-# Erstelle Build Verzeichnis
+# Erstelle Build-Verzeichnis
 echo "Erstelle Build Verzeichnis..."
 mkdir -p build
 
-# Kompiliere Quellcode
+# Kompilierung
 echo "Kompiliere Projekt..."
-
-arm-none-eabi-gcc -c -mcpu=cortex-m4 -mthumb src/main.c -o build/main.o
-if [ $? -ne 0 ]; then
-    echo -e "${RED}Fehler beim Kompilieren von main.c${NC}"
-    exit 1
-fi
-
-arm-none-eabi-gcc -c -mcpu=cortex-m4 -mthumb src/startup.c -o build/startup.o
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -O0 -Wall -c -o build/startup.o src/startup.c
 if [ $? -ne 0 ]; then
     echo -e "${RED}Fehler beim Kompilieren von startup.c${NC}"
     exit 1
 fi
 
-# Linken
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -g -O0 -Wall -c -o build/main.o src/main.c
+if [ $? -ne 0 ]; then
+    echo -e "${RED}Fehler beim Kompilieren von main.c${NC}"
+    exit 1
+fi
+
+# Linking
 echo "Linke Objekt-Dateien..."
-arm-none-eabi-gcc -nostdlib -T src/linker_script.ld build/main.o build/startup.o -o build/foc.elf
+arm-none-eabi-gcc -mcpu=cortex-m4 -mthumb -mfloat-abi=hard -mfpu=fpv4-sp-d16 -nostdlib -T src/linker_script.ld build/main.o build/startup.o -lm -o build/foc.elf
 if [ $? -ne 0 ]; then
     echo -e "${RED}Fehler beim Linken${NC}"
     exit 1
 fi
 
-# Erstelle Binary
+# Binary erzeugen
+echo "🔨 Erzeuge Binary..."
 arm-none-eabi-objcopy -O binary build/foc.elf build/foc.bin
-
-echo -e "${GREEN}Build erfolgreich abgeschlossen!${NC}"
-echo "Die Binary befindet sich in: build/foc.bin"
-
-# Flashe das Programm
-echo -e "${YELLOW}Verbinde mit ST-Link...${NC}"
-st-flash --connect-under-reset write build/foc.bin 0x08000000
 if [ $? -ne 0 ]; then
-    echo -e "${RED}Fehler beim Flashen des Programms${NC}"
-    echo "Bitte überprüfen Sie:"
-    echo "1. Ist der ST-Link korrekt angeschlossen?"
-    echo "2. Ist das Board eingeschaltet?"
+    echo -e "${RED}❌ Fehler beim Erzeugen der Binary${NC}"
     exit 1
 fi
 
-echo -e "${GREEN}Programm erfolgreich geflasht!${NC}"
+echo -e "${GREEN}✅ Build erfolgreich abgeschlossen!${NC}"
+echo "📁 Die Binary befindet sich in: build/foc.bin"
+
+# Flashe das Programm
+echo -e "${YELLOW}🔌 Verbinde mit ST-Link...${NC}"
+st-flash --connect-under-reset write build/foc.bin 0x08000000
+if [ $? -ne 0 ]; then
+    echo -e "${RED}❌ Fehler beim Flashen des Programms${NC}"
+    echo "🔍 Bitte überprüfen Sie:"
+    echo "   1. Ist der ST-Link korrekt angeschlossen?"
+    echo "   2. Ist das Board eingeschaltet?"
+    exit 1
+fi
+
+echo -e "${GREEN}🚀 Programm erfolgreich geflasht!${NC}"
