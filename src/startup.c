@@ -6,11 +6,10 @@
 #include <stdint.h>
 #define ISR_VECTOR_SIZE_WORDS 114
 
-
 extern uint32_t _etext, _sdata, _edata, _sbss, _ebss;
 
 void main(void);
-void init_system(void); 
+void init_system(void);
 void reset_handler(void);
 void default_handler(void);
 void nmi_handler(void) __attribute__((weak));
@@ -77,12 +76,11 @@ void reset_handler(void)
         bss[i] = 0;
     }
 
-    init_system(); 
+    init_system();
 
     main();
 
     while (1)
     {
-        
     }
 }
