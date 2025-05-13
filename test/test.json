@@ -1,0 +1,29 @@
+{
+  "1": {
+    "name": "Integrationstest",
+    "steps": {
+      "1": {
+        "description": "22V Gleichstrom an die BLDC-Motor Testbench anlegen."
+      },
+      "2": {
+        "description": "setup.sh ausführen"
+      },
+      "3": {
+        "description": ""
+      }
+    },
+    "executions": 3
+  },
+  "2": {
+    "name": "BackEMF Test",
+    "steps": {
+      "1": {
+        "description": ""
+      },
+      "2": {
+        "description": ""
+      }
+    },
+    "executions": 3
+  }
+}
